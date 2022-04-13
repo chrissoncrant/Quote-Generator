@@ -56,10 +56,13 @@ async function getQuotes() {
         newQuote(apiQuotes);
     } catch(err) {
         console.error(err)
-    }
+    };
 }
 
-quoteBtn.addEventListener('click', getQuotes);
+quoteBtn.addEventListener('click', () => {
+    loading();
+    getQuotes();
+});
 
 function tweetQuote() {
     let string = `${quoteText.textContent} - ${authorText.textContent}`;
@@ -68,6 +71,5 @@ function tweetQuote() {
 }
 
 twitterBtn.addEventListener('click', tweetQuote);
-
 
 getQuotes();
