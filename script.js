@@ -4,17 +4,16 @@ const quoteBtn = document.getElementById('new-quote');
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
-
 const loader = document.querySelector('.loader');
 
 let apiQuotes = [];
 
-function loading() {
+function showLoadingSpinner() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-function hideLoading() {
+function hideLoadingSpinner() {
     quoteContainer.hidden = false;
     loader.style.display = 'none';
 }
@@ -37,30 +36,30 @@ function populateQuote(text, author) {
     adjustQuoteFontSize(text);
     quoteText.textContent = text;
     fillAuthor(author);
-    hideLoading();
+    hideLoadingSpinner();
 }
 
 function newQuote(quoteArray) {
-    loading();
+    showLoadingSpinner();
     const randomNumber = Math.floor(Math.random() * quoteArray.length);
     const { text, author } = quoteArray[randomNumber];
     populateQuote(text, author);
 }
 
 async function getQuotes() {
-    loading();
+    showLoadingSpinner();
     const API_URL = 'https://type.fit/api/quotes';
     try {
         const response = await fetch(API_URL);
         apiQuotes = await response.json();
         newQuote(apiQuotes);
     } catch(err) {
-        console.error(err)
+        console.error(err);
     };
 }
 
 quoteBtn.addEventListener('click', () => {
-    loading();
+    showLoadingSpinner();
     getQuotes();
 });
 
