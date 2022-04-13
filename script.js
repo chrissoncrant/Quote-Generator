@@ -59,7 +59,6 @@ async function getQuotes() {
 }
 
 quoteBtn.addEventListener('click', () => {
-    showLoadingSpinner();
     getQuotes();
 });
 
