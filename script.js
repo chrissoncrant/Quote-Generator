@@ -26,9 +26,7 @@ function fillAuthor(author) {
 
 function adjustQuoteFontSize(text) {
     if (text.length > 90) {
-        console.log(text.length)
         quoteText.classList.add('long-quote');
-        console.log(quoteText)
     } else quoteText.classList.remove('long-quote');
 }
 
@@ -52,9 +50,13 @@ async function getQuotes() {
     try {
         const response = await fetch(API_URL);
         apiQuotes = await response.json();
+        if (!apiQuotes) {
+            apiQuotes = emergencyQuotes;
+        };
         newQuote(apiQuotes);
     } catch(err) {
         console.error(err);
+        newQuote(emergencyQuotes);
     };
 }
 
